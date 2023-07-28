@@ -7,14 +7,12 @@ class Entity implements Displayable {
   PVector rotation;
   Geometry geometry;
   EventListener eventListener;
-  Event hoverEvent;
   
   Entity() {
     this.position = new PVector(0, 0, 0);
     this.rotation = new PVector(0, 0, 0);
     
     this.eventListener = new EventListener();
-    this.hoverEvent = new di
   }
   
   Entity(Geometry myGeometry) {

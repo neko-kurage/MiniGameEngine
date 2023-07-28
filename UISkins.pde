@@ -1,17 +1,17 @@
 abstract class UISkin {
   UIEntity parentNode;
   
-  color fillColor = 255;
+  color fillColor = color(60, 0, 0);
   float strokeWeight = 0;
-  color strokeColor = 0;
+  color strokeColor = color(0);
   
-  color startFillColor = 255;
+  color startFillColor = color(60, 0, 0);
   float startStrokeWeight = 0;
-  color startStrokeColor = 0;
+  color startStrokeColor = color(255, 0, 0);
   
-  color hoverFillColor = 255;
+  color hoverFillColor = color(120, 0, 0);
   float hoverStrokeWeight = 0;
-  color hoverStrokeColor = 0;
+  color hoverStrokeColor = color(200, 0, 0);
 
   void setParentNode(UIEntity parentNode) {
     this.parentNode = parentNode;
@@ -108,9 +108,9 @@ class SkinCircleButton extends UISkin {
   
   void setTween() {
     tweenRadius = new Tween(this.startRadius, this.hoverRadius, this.duration, this.easing);
-    tweenFillColor = new Tween(this.startFillColor, this.hoverFillColor, this.duration, this.easing);
+    tweenFillColor = new Tween(new float[]{this.startFillColor}, new float[]{this.hoverFillColor}, this.duration, this.easing);
     tweenStrokeWeight = new Tween(this.startStrokeWeight, this.hoverStrokeWeight, this.duration, this.easing);
-    tweenStrokeColor = new Tween(this.startStrokeColor, this.hoverStrokeColor, this.duration, this.easing);
+    tweenStrokeColor = new Tween(new float[]{this.startStrokeColor}, new float[]{this.hoverStrokeColor}, this.duration, this.easing);
   }
   
   void setTween(int duration) {
@@ -141,11 +141,11 @@ class SkinCircleButton extends UISkin {
       tweenStrokeWeight.reverse();
       tweenStrokeColor.reverse();
     }
-    
+    //println(this.startStrokeColor.getColorComponents()));
     radius = tweenRadius.getValue();
-    fillColor = color(tweenFillColor.getValue(), 0, 0);
+    fillColor = color(tweenFillColor.getValue(), 255, 255);
     strokeWeight = tweenStrokeWeight.getValue();
-    strokeColor = color(tweenStrokeColor.getValue());
+    strokeColor = color(tweenFillColor.getValue(), 255, 255);
   }
   
   void display() {

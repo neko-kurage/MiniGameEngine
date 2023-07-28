@@ -41,13 +41,18 @@ void setup() {
   world.addEntity(UI);
   world.addEntity(UI2);
   world.addEntity(UI3);
+  
+  Test test = new Test(1, 1, 2);
+  test.printTest();
 }
 
 void draw() {
   background(0);
   
-  //print(WatchMouse.mouseStates);
-  //println(WatchKey.keyStates);
+  println(UI.getHoverState());
+  
+  print(WatchMouse.mouseStates);
+  println(WatchKey.keyStates);
   
   world.update();
   world.display();
@@ -70,4 +75,16 @@ void mousePressed() {
 
 void mouseReleased() {
   WatchMouse.updateMouseReleased(mouseButton);
+}
+
+class Test {
+  float[] num;
+  
+  Test(float... num) {
+    this.num = num;
+  }
+  
+  void printTest() {
+    print(Arrays.toString(num));
+  }
 }
