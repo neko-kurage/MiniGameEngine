@@ -1,3 +1,6 @@
-# Urban Flight
-三次元のBoidsがマウスに反応する。
-今のところクリックした所に集まってくる。
+# MiniGameEngine
+小規模のゲームエンジンです
+立体を表示したりUIをイージングさせたりできます
+
+詳しくは以下のnotionに書いてあります。
+https://www.notion.so/MiniGameEngine-b3b17bdee6ba46f4a2cf5cb3e6720722
