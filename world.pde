@@ -61,9 +61,8 @@ class Object {
     if(geometry == null) return;
     pushMatrix();
       translate(this.position.x, this.position.y, this.position.z);
-      
-      rotateY(this.rotation.y);
       rotateX(this.rotation.x);
+      rotateY(this.rotation.y);
       rotateZ(this.rotation.z);
       geometry.display();
     popMatrix();

@@ -200,6 +200,12 @@ class Boid extends Object {
     } else if(this.position.y < 0) {
       this.position.y = height;
     }
+    
+    if(this.position.z > 800) {
+      this.position.z = -500;
+    } else if(this.position.y < -500) {
+      this.position.z = 800;
+    }
   }
   
   void setMaxForce(float setMaxForce) {
@@ -215,46 +221,6 @@ class Boid extends Object {
     this.velocity.add(this.acceleration);
     this.velocity.limit(this.maxSpeed);
     
-    /*
-    //The order is x y z
-    PVector normalizedVector = new PVector(this.velocity.x, this.velocity.y, this.velocity.z);
-    normalizedVector.normalize();
-    
-    float[] unitVector = {normalizedVector.x, normalizedVector.y, normalizedVector.z};
-
-    float[] rad = {
-      atan2(unitVector[2], -unitVector[1]),
-      atan2(unitVector[0], unitVector[2]),
-      atan2(unitVector[0], -unitVector[1])
-    };
-    
-    float[][] eulerMatrix =
-    {
-      {
-        cos(rad[0]) * cos(rad[1]) * cos(rad[2]) - sin(rad[0]) * sin(rad[1]),
-        sin(rad[0]) * cos(rad[1]) * cos(rad[2]) + cos(rad[0]) * sin(rad[2]),
-        sin(-rad[1]) * cos(rad[2])
-      },
-      {
-        cos(-rad[0]) * sin(rad[2]) - sin(rad[0]) * cos(rad[1]) * cos(rad[2]),
-        sin(-rad[0]) * cos(rad[2]) + cos(rad[0]) * cos(rad[1]) * sin(rad[2]),
-        sin(rad[1]) * sin(rad[2])
-      },
-      {
-        cos(rad[0]) * sin(rad[1]),
-        sin(rad[0]) * sin(rad[1]),
-        cos(rad[1])
-      }
-    };
-    
-    float euler[] = {0, 0, 0};
-    for(int selectAxis = 0; selectAxis < 3; selectAxis++) {
-      for(int i = 0; i < 3; i++) {
-        euler[selectAxis] += unitVector[selectAxis] * eulerMatrix[selectAxis][i];
-      }
-    }
-    */
-    
     PVector normalizedVector = new PVector(this.velocity.x, this.velocity.y, this.velocity.z);
     normalizedVector.normalize();
     
@@ -264,15 +230,15 @@ class Boid extends Object {
     float radY = atan2(unitVector[0], unitVector[2]);
     float radZ = atan2(unitVector[0], -unitVector[1]);
 
-    PVector xyFlatVelocity = Matrix.rotateY(this.velocity, -radY);
+    PVector xyFlatVelocity = Matrix.rotateY(this.velocity, -radY + radians(90));
     //println(xyFlatVelocity + ":" + this.velocity);
     
-    float pit = atan2(-xyFlatVelocity.z, -xyFlatVelocity.y);
+    float pit = atan2(xyFlatVelocity.x, -xyFlatVelocity.y);
     //println(this.position, pit);
 
-    this.rotation.x = pit;
-    this.rotation.y = radY;
-    //this.rotation.z = HALF_PI;
+    //this.rotation.x = pit;
+    this.rotation.y = radY - radians(90);
+    this.rotation.z = pit;
 
 
     // 1フレームごとに移動量を算出しなおすので0に戻す

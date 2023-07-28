@@ -13,7 +13,7 @@ void setup() {
   world = new World();
   camera = new Camera();
   
-  initBoids(800);
+  initBoids(1200);
   initObjects(150);
   initLight();
   
@@ -27,10 +27,7 @@ void initBoids(int count) {
   for(int i = 0; i < count; i++) {
     float angle = random(0, PI * 2);
     float rad = 100;
-    
-    //float posX = width / 2 + rad * sin(angle);
-    //float posY = height / 2 + rad * cos(angle);
-    
+
     float posX = random(0, width);
     float posY = random(0, height);
     float posZ = random(-100, 100);
@@ -57,8 +54,6 @@ void initObjects(int count) {
     objects.add(myObject);
     world.addObject(myObject);
   }
-  
-  //object plane = new Object(new Box())
 }
 
 void initLight() {
@@ -67,7 +62,7 @@ void initLight() {
 }
 
 void draw() {
-  background(0, 0, 255);
+  background(0, 0, 0);
   
   object.position.add(0, 0, 0);
   object.rotation.add(0, degToRad(1), 0);
@@ -80,18 +75,11 @@ void draw() {
     boid.update();
   }
  
-  //println(boids.get(0).velocity);
   fill(255,255,255);
   noStroke();
   //strokeWeight(2);
   initLight();
   //camera.setPosition(new PVector(boids.get(0).position.x - 400, boids.get(0).position.y + 200, boids.get(0).position.z- 400), boids.get(0).position);
-  
-  pushMatrix();
-  //fill (255, 255, 255, 10);
-  translate(-1000, 1000, -500);
-  //box(6000, 6000, 1);
-  popMatrix();
   
   fill (255, 120);
   world.display();
