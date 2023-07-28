@@ -1,6 +1,8 @@
 World world;
 Entity object;
 
+Geometry geometry;
+
 UIEntity UI;
 UIEntity UI2;
 UIEntity UI3;
@@ -29,21 +31,23 @@ void setup() {
   UI = new UIEntity(new CircleCollider(new PVector(0, 0), 60));
   UI.position = new PVector(width * 0.2, height / 2);
   UI.setSkin(skin);
+  UI.addClickEvent("1", new Test1());
   
   UI2 = new UIEntity(new CircleCollider(new PVector(0, 0), 60)); 
   UI2.position = new PVector(width / 2, height / 2);
   UI2.setSkin(skin2);
-  UI2.addClickEvent("print", new TestPrint());
+  UI2.addClickEvent("2", new Test2());
 
   UI3 = new UIEntity(new CircleCollider(new PVector(0, 0), 60));
   UI3.position = new PVector(width * 0.8, height / 2);
   UI3.setSkin(skin3);
+  UI3.addClickEvent("3", new Test3());
   
   world.addEntity(UI);
   world.addEntity(UI2);
   world.addEntity(UI3);
     
-  Geometry geometry = new GeometryPyramid(20, 20, 200);
+  geometry = new GeometryPyramid(20, 20, 200);
   geometry.fillColor = color(255, 255, 255, 20);
   geometry.strokeColor = color(255);
   object = new Entity(geometry);
@@ -59,7 +63,7 @@ void draw() {
   print(WatchMouse.mouseStates);
   println(WatchKey.keyStates);
   
-  object.rotation.y += 0.1;
+  object.rotation.y += 0.05;
   object.rotation.x += 0.01;
   
   world.update();
@@ -90,5 +94,32 @@ void mouseReleased() {
 class TestPrint implements EventAction {
   void execute() {
     println("Hello!!");
+  }
+}
+
+class Test1 implements EventAction {
+  void execute() {
+    geometry = new GeometryPyramid(20, 20, 200);
+    geometry.fillColor = color(255, 140, 100, 80);
+    geometry.strokeColor = color(255);
+    object.setGeometry(geometry);
+  }
+}
+
+class Test2 implements EventAction {
+  void execute() {
+    geometry = new GeometryBox(60, 60, 150);
+    geometry.fillColor = color(255, 255, 200, 120);
+    geometry.strokeColor = color(255);
+    object.setGeometry(geometry);
+  }
+}
+
+class Test3 implements EventAction {
+  void execute() {
+    geometry = new GeometryPyramid(50, 50, 70);
+    geometry.fillColor = color(160, 230, 200, 80);
+    geometry.strokeColor = color(255);
+    object.setGeometry(geometry);
   }
 }

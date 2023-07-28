@@ -149,7 +149,7 @@ class UIEntity extends Entity {
     return this.parentWorld.colisionDetector.detectCollision(this.parentWorld.mouseData.collision, this.collision);
   }
   
-  void dispatchClickEvent() {
+  private void dispatchClickEvent() {
     if(this.isHover() && WatchMouse.getMouseState("left") == "pressed") {
       isClick.dispatch();
     }

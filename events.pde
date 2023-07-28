@@ -2,7 +2,7 @@ class InputKey implements EventTrigger {
   //Character = watch input key
   //String = triggerType
   HashMap<Character, String> triggerKeys = new HashMap<Character, String>();  
-  final HashSet<String> triggerTypes = new HashSet<String>() {{
+  private final HashSet<String> triggerTypes = new HashSet<String>() {{
     add("pressed");
     add("released");
     add("down");
@@ -63,8 +63,6 @@ class KeyPressed implements EventTrigger {
      if(WatchKey.checkKeyPressed()) return true;
      return false;
    }
-   
-   void dispatch(){};
 }
 
 class KeyDown implements EventTrigger {
@@ -72,8 +70,6 @@ class KeyDown implements EventTrigger {
      if(WatchKey.checkKeyDown()) return true;
      return false;
    }
-   
-   void dispatch(){};
 }
 
 class KeyReleased implements EventTrigger {
@@ -90,7 +86,7 @@ class InputMouse implements EventTrigger {
   
   //Integer = getMouseStateにintで入力された場合の対応表。37,39,3以外の数字はcheckInputMouseTypeValidity()ではじく。
   //String = 文字で入力された場合にも対応出来るように
-  final HashMap<Integer, String> inputMouseTypes = new HashMap<Integer, String>() {{
+  private final HashMap<Integer, String> inputMouseTypes = new HashMap<Integer, String>() {{
     put(37, "left");
     put(39, "right");
     put(3, "center");
@@ -125,9 +121,8 @@ class InputMouse implements EventTrigger {
     this.triggerMouseButtons.put(getKey(inputMouseTypes, triggerMouseButton), triggerType);
   }
   
-  void removeMouseButton(int triggerMouseButton, String triggerType) {  
-    checkTriggerTypeValidity(triggerType);
-    this.triggerMouseButtons.put(triggerMouseButton, triggerType);
+  void removeMouseButton(int triggerMouseButton) {  
+    this.triggerMouseButtons.remove(triggerMouseButton);
   }
   
   void removeMouseButton(String triggerMouseButton) {  

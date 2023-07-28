@@ -54,6 +54,9 @@ class GeometryBox extends Geometry {
   }
   
   void display() {
+    fill(fillColor);
+    strokeWeight(2);
+    stroke(strokeColor);
     box(this.myWidth, this.myHeight, this.myDepth);
   }
 }
