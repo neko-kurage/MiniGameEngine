@@ -13,3 +13,22 @@ class Wrapper<T extends Number> {
     return value;
   }
 }
+
+class BoolWrapper {
+  private boolean bool = false;
+  
+  BoolWrapper() {
+  }
+  
+  BoolWrapper(boolean bool) {
+    this.bool = bool;
+  }
+  
+  void setBool(boolean bool) {
+    this.bool = bool;
+  }
+  
+  boolean isTrue() {
+    return bool;
+  }
+}

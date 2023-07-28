@@ -148,7 +148,7 @@ class SkinCircleButton extends UISkin {
     radius = tweenRadius.getValue();
     fillColor = tweenFillColor.getColor();
     strokeWeight = tweenStrokeWeight.getValue();
-    strokeColor = tweenFillColor.getColor();
+    strokeColor = tweenStrokeColor.getColor();
   }
   
   void display() {

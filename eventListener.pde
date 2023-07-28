@@ -71,7 +71,6 @@ class Event {
 
 interface EventTrigger {
   boolean isFireCondition();
- 
 }
 
 interface EventAction {

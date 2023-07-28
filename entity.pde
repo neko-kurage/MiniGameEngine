@@ -94,6 +94,8 @@ class MouseEntity extends Entity {
 class UIEntity extends Entity {
   Collider2D collision;
   UISkin skin;
+  Event clickEvent;
+  DispatchEvent isClick;
   
   private String hoverState = "hoverOff";
   final HashSet<String> stateTypes = new HashSet<String>() {{
@@ -109,17 +111,25 @@ class UIEntity extends Entity {
   
   UIEntity() {
     super();
+    clickEvent = new Event();
+    isClick = new DispatchEvent();
+    clickEvent.addTrigger("isClick", isClick);
+    eventListener.addEvent("ClickedUI", clickEvent);
   }
   
   UIEntity(Collider2D setCollision) {
     super();
-
+    clickEvent = new Event();
+    isClick = new DispatchEvent();
+    clickEvent.addTrigger("isClick", isClick);
+    eventListener.addEvent("ClickedUI", clickEvent);
+    
     this.collision = setCollision; 
     this.collision.setParentNode(this);
   }
   
-  void addClickEvent(EventAction action) {
-    Event event = new event()
+  void addClickEvent(String actionName, EventAction action) {
+    clickEvent.addAction(actionName, action);
   }
   
   void setCollision(Collider2D setCollision) {
@@ -139,10 +149,18 @@ class UIEntity extends Entity {
     return this.parentWorld.colisionDetector.detectCollision(this.parentWorld.mouseData.collision, this.collision);
   }
   
+  void dispatchClickEvent() {
+    if(this.isHover() && WatchMouse.getMouseState("left") == "pressed") {
+      isClick.dispatch();
+    }
+  }
+  
   @Override
   void update() {
-    super.update();
     if(this.collision != null) this.collision.update();
+    dispatchClickEvent();
+    
+    super.update();    
     
     if(hoverState.equals("hovered")) hoverState = "hovering";
     if(hoverState.equals("hoverOff") && isHover()) hoverState = "hovered";
@@ -157,7 +175,4 @@ class UIEntity extends Entity {
     if(skin == null) return;
     skin.display();
   }
-}
-
-class ClickEvent extends InputMouse {
 }

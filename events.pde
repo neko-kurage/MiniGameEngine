@@ -63,6 +63,8 @@ class KeyPressed implements EventTrigger {
      if(WatchKey.checkKeyPressed()) return true;
      return false;
    }
+   
+   void dispatch(){};
 }
 
 class KeyDown implements EventTrigger {
@@ -70,6 +72,8 @@ class KeyDown implements EventTrigger {
      if(WatchKey.checkKeyDown()) return true;
      return false;
    }
+   
+   void dispatch(){};
 }
 
 class KeyReleased implements EventTrigger {
@@ -192,11 +196,11 @@ class MouseReleased implements EventTrigger {
    }
 }
 
-class dispatchEvent implements EventTrigger {
+class DispatchEvent implements EventTrigger {
   boolean dispatcher = false;
   
   void dispatch() {
-    dispatcher = true;
+    this.dispatcher = true;
   };
   
   boolean isFireCondition() {
