@@ -1,81 +1,144 @@
-class Tween extends Timer{
-  float[] froms, tos;
-  Wrapper<Float>[] targets = null;
+class Tween<T> extends Timer {
+  ArrayList<Float> froms = new ArrayList<Float>();
+  ArrayList<Float> tos = new ArrayList<Float>();
+  ArrayList<Wrapper<T>> targets = new ArrayList<Wrapper<T>>();
   Easing easing;
   
-  Tween(float from, float to, int duration) {
+  Tween(T from, T to, int duration) {
     super(duration);
-    this.froms = new float[] { from };
-    this.tos = new float[] { to };
+    
+    if (from instanceof Number && to instanceof Number) {
+      this.froms.add((Float) from);
+      this.tos.add((Float) to);
+    } else {
+      throw new IllegalArgumentException("引数fromsもしくは引数tosに予期しない型が代入されました");
+    }
     
     this.easing = new EasingLinear();
   }
-
-  Tween(float[] froms, float[] tos, int duration) {
+  
+  Tween(T from, T to, int duration, Easing easing) {
     super(duration);
-    this.froms = froms;
-    this.tos = tos;
+    if (from instanceof Number && to instanceof Number) {
+      this.froms.add((Float) from);
+      this.tos.add((Float) to);
+    } else {
+      throw new IllegalArgumentException("引数fromsもしくは引数tosに予期しない型が代入されました");
+    }
+    
+    this.easing = easing;
+  }
+
+  Tween(T[] froms, T[] tos, int duration) {
+    super(duration);
+
+    if(froms.length != tos.length) {
+      throw new IllegalArgumentException("引数fromsと引数tosの要素数は同じにしてください");
+    }
+    
+    if (froms[0] instanceof Number && tos[0] instanceof Number) {
+      for(int i = 0; i < froms.length; i++) {
+        this.froms.add((Float) froms[i]);
+        this.tos.add((Float) tos[i]);
+      }
+    } else {
+      throw new IllegalArgumentException("引数fromsもしくは引数tosに予期しない型が代入されました");
+    }
 
     this.easing = new EasingLinear();
   }
   
-  Tween(float[] froms, float[] tos, int duration, Easing easing) {
+  Tween(T[] froms, T[] tos, int duration, Easing easing) {
     super(duration);
-    this.froms = froms;
-    this.tos = tos;
+    
+    if (froms[0] instanceof Number && tos[0] instanceof Number) {
+      for(int i = 0; i < froms.length; i++) {
+        this.froms.add((Float) froms[i]);
+        this.tos.add((Float) tos[i]);
+      }
+    } else {
+      throw new IllegalArgumentException("引数fromsもしくは引数tosに予期しない型が代入されました");
+    }
     
     this.easing = easing;
   }
-
-  Tween(float from, float to, int duration, Easing easing) {
+  
+  Tween(Wrapper<T> target, T from, T to, int duration) {
     super(duration);
-    this.froms = new float[] { from };
-    this.tos = new float[] { to };
+    if (from instanceof Number && to instanceof Number) {
+      this.froms.add((Float) from);
+      this.tos.add((Float) to);
+    } else {
+      throw new IllegalArgumentException("引数fromsもしくは引数tosに予期しない型が代入されました");
+    }
     
+    this.targets.add(target);
+    this.easing = new EasingLinear();
+  }
+  
+  Tween(Wrapper<T> target, T from, T to, int duration, Easing easing) {
+    super(duration);
+    if (from instanceof Number && to instanceof Number) {
+      this.froms.add((Float) from);
+      this.tos.add((Float) to);
+    } else {
+      throw new IllegalArgumentException("引数fromsもしくは引数tosに予期しない型が代入されました");
+    }
+    
+    this.targets.add(target);
     this.easing = easing;
   }
 
-  Tween(Wrapper<Float>[] targets, float from, float to, int duration) {
+  Tween(Wrapper<T>[] targets, T[] froms, T[] tos, int duration) {
     super(duration);
-    this.froms = new float[] { from };
-    this.tos = new float[] { to };
+
+    if(targets.length != froms.length && targets.length != tos.length) {
+      throw new IllegalArgumentException("引数targets、引数froms、引数tosのそれぞれの要素数は同じにしてください");
+    }
     
-    this.targets = targets;
+    if (froms[0] instanceof Number && tos[0] instanceof Number) {
+      for(int i = 0; i < froms.length; i++) {
+        this.froms.add((Float) froms[i]);
+        this.tos.add((Float) tos[i]);
+      }
+    } else {
+      throw new IllegalArgumentException("引数fromsもしくは引数tosに予期しない型が代入されました");
+    }
+    
     this.easing = new EasingLinear();
   }
-
-  Tween(Wrapper<Float>[] targets, float[] froms, float[] tos, int duration) {
+  
+  Tween(Wrapper<T>[] targets, T[] froms, T[] tos, int duration, Easing easing) {
     super(duration);
-    this.froms = froms;
-    this.tos = tos;
     
-    this.targets = targets;
-    this.easing = new EasingLinear();
-  }
-
-  Tween(Wrapper<Float>[] targets, float[] froms, float[] tos, int duration, Easing easing) {
-    super(duration);
-    this.froms = froms;
-    this.tos = tos;
+    if(targets.length != froms.length && targets.length != tos.length) {
+      throw new IllegalArgumentException("引数targets、引数froms、引数tosのそれぞれの要素数は同じにしてください");
+    }
     
-    this.targets = targets;
+    if (froms[0] instanceof Number && tos[0] instanceof Number) {
+      for(int i = 0; i < froms.length; i++) {
+        this.froms.add((Float) froms[i]);
+        this.tos.add((Float) tos[i]);
+      }
+    } else {
+      throw new IllegalArgumentException("引数fromsもしくは引数tosに予期しない型が代入されました");
+    }
+    
     this.easing = easing;
   }
   
   float getValue() {
     if(this.isCompleat()) this.stop();
     
-    if (froms.length != 1);
-    
-    return map(easing.get(getProgress()), 0, 1, this.froms[0], this.tos[0]);
+    return map(easing.get(getProgress()), 0, 1, this.froms.get(0), this.tos.get(0));
   }
   
   float[] getValues() {
     if(this.isCompleat()) this.stop();
     
-    float[] result = new float[froms.length];
-    for(int i = 0; i < froms.length; i++) {
-      result[i] = map(easing.get(getProgress()), 0, 1, this.froms[i], this.tos[i]);
+    float[] result = new float[this.froms.size()];
+    for(int i = 0; i < froms.size(); i++) {
+      result[i] = map(easing.get(getProgress()), 0, 1, this.froms.get(i), this.tos.get(i));
     }
     
     return result;
@@ -88,75 +151,8 @@ class Tween extends Timer{
   }
   
   void update() {
-    for(int i = 0; i < targets.length; i++) {
-      targets[i].value = map(easing.get(getProgress()), 0, 1, this.froms[i], this.tos[i]);
+    for(int i = 0; i < this.targets.size(); i++) {
+      targets.get(i).value = (T)(Float) map(easing.get(getProgress()), 0, 1, this.froms.get(i), this.tos.get(i));
     }
   }
 }
-/*
-class Tween<T> extends Timer {
-  float[] froms, tos;
-  Wrapper<Float>[] targets = null;
-  Easing easing;
-  
-  Tween(T from, T to, int duration) {
-    super(duration);
-    this.froms = new float[] { from };
-    this.tos = new float[] { to };
-    
-    this.easing = new EasingLinear();
-  }
-
-  Tween(T[] froms, T[] tos, int duration) {
-    super(duration);
-    this.froms = froms;
-    this.tos = tos;
-
-    this.easing = new EasingLinear();
-  }
-  
-  Tween(T[] froms, T[] tos, int duration, Easing easing) {
-    super(duration);
-    this.froms = froms;
-    this.tos = tos;
-    
-    this.easing = easing;
-  }
-
-  Tween(T from, T to, int duration, Easing easing) {
-    super(duration);
-    this.froms = new float[] { from };
-    this.tos = new float[] { to };
-    
-    this.easing = easing;
-  }
-
-  Tween(Wrapper<T>[] targets, float from, float to, int duration) {
-    super(duration);
-    this.froms = new float[] { from };
-    this.tos = new float[] { to };
-    
-    this.targets = targets;
-    this.easing = new EasingLinear();
-  }
-
-  Tween(Wrapper<T>[] targets, float[] froms, float[] tos, int duration) {
-    super(duration);
-    this.froms = froms;
-    this.tos = tos;
-    
-    this.targets = targets;
-    this.easing = new EasingLinear();
-  }
-
-  Tween(Wrapper<Float>[] targets, float[] froms, float[] tos, int duration, Easing easing) {
-    super(duration);
-    this.froms = froms;
-    this.tos = tos;
-    
-    this.targets = targets;
-    this.easing = easing;
-  }
-  
-}
-*/

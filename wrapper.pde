@@ -1,11 +1,15 @@
-class Wrapper<V extends Number> {
-  private V value;
+class Wrapper<T> {
+  private T value;
   
-  void setValue(V value) {
+  Wrapper(T value) {
     this.value = value;
   }
   
-  V getValue(){
+  void setValue(T value) {
+    this.value = value;
+  }
+  
+  T getValue(){
     return value;
   }
 }
