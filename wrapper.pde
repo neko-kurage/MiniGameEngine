@@ -1,4 +1,4 @@
-class Wrapper<T> {
+class Wrapper<T extends Number> {
   private T value;
   
   Wrapper(T value) {
