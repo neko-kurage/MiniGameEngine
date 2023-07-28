@@ -80,55 +80,58 @@ class SkinCircleButton extends UISkin {
     setTween();
   }
   
-  void setHoverStyle(float startRadius) {
-    this.hoverRadius = startRadius;
+  void setHoverStyle(float hoverRadius) {
+    this.hoverRadius = hoverRadius;
     setTween();
   }
   
-  void setHoverStyle(float startRadius, color startFillColor) {
-    this.hoverRadius = startRadius;
-    this.hoverFillColor = startFillColor;
+  void setHoverStyle(float hoverRadius, color hoverFillColor) {
+    this.hoverRadius = hoverRadius;
+    this.hoverFillColor = hoverFillColor;
     setTween();
   }
   
-  void setHoverStyle(float startRadius, color startFillColor, float startStrokeWeight) {
-    this.hoverRadius = startRadius;
-    this.hoverFillColor = startFillColor;
-    this.hoverStrokeWeight = startStrokeWeight;
+  void setHoverStyle(float hoverRadius, color hoverFillColor, float hoverStrokeWeight) {
+    this.hoverRadius = hoverRadius;
+    this.hoverFillColor = hoverFillColor;
+    this.hoverStrokeWeight = hoverStrokeWeight;
     setTween();
   }
   
-  void setHoverStyle(float startRadius, color startFillColor, float startStrokeWeight, color startStrokeColor) {
-    this.hoverRadius = startRadius;
-    this.hoverFillColor = startFillColor;
-    this.hoverStrokeWeight = startStrokeWeight;
-    this.hoverStrokeColor = startStrokeColor;
+  void setHoverStyle(float hoverRadius, color hoverFillColor, float hoverStrokeWeight, color hoverStrokeColor) {
+    this.hoverRadius = hoverRadius;
+    this.hoverFillColor = hoverFillColor;
+    this.hoverStrokeWeight = hoverStrokeWeight;
+    this.hoverStrokeColor = hoverStrokeColor;
     setTween();
   }
   
   void setTween() {
     tweenRadius = new Tween(this.startRadius, this.hoverRadius, this.duration, this.easing);
-    tweenFillColor = new Tween(new float[]{this.startFillColor}, new float[]{this.hoverFillColor}, this.duration, this.easing);
+    tweenFillColor = new Tween(this.startFillColor, this.hoverFillColor, this.duration, this.easing);
     tweenStrokeWeight = new Tween(this.startStrokeWeight, this.hoverStrokeWeight, this.duration, this.easing);
-    tweenStrokeColor = new Tween(new float[]{this.startStrokeColor}, new float[]{this.hoverStrokeColor}, this.duration, this.easing);
+    tweenStrokeColor = new Tween(this.startStrokeColor, this.hoverStrokeColor, this.duration, this.easing);
   }
   
   void setTween(int duration) {
     this.duration = duration;
+    tweenRadius = new Tween(this.startRadius, this.hoverRadius, this.duration, this.easing);
+    tweenFillColor = new Tween(this.startFillColor, this.hoverFillColor, this.duration, this.easing);
+    tweenStrokeWeight = new Tween(this.startStrokeWeight, this.hoverStrokeWeight, this.duration, this.easing);
+    tweenStrokeColor = new Tween(this.startStrokeColor, this.hoverStrokeColor, this.duration, this.easing);
   }
   
   void setTween(int duration, Easing easing) {
     this.duration = duration;
     this.easing = easing;
+    tweenRadius = new Tween(this.startRadius, this.hoverRadius, this.duration, this.easing);
+    tweenFillColor = new Tween(this.startFillColor, this.hoverFillColor, this.duration, this.easing);
+    tweenStrokeWeight = new Tween(this.startStrokeWeight, this.hoverStrokeWeight, this.duration, this.easing);
+    tweenStrokeColor = new Tween(this.startStrokeColor, this.hoverStrokeColor, this.duration, this.easing);
   }
   
   void update() {
     if (parentNode.getHoverState().equals("hovered")) {
-      tweenRadius = new Tween(this.startRadius, this.hoverRadius, this.duration, this.easing);
-      tweenFillColor = new Tween(this.startFillColor, this.hoverFillColor, this.duration, this.easing);
-      tweenStrokeWeight = new Tween(this.startStrokeWeight, this.hoverStrokeWeight, this.duration, this.easing);
-      tweenStrokeColor = new Tween(this.startStrokeColor, this.hoverStrokeColor, this.duration, this.easing);
-      
       tweenRadius.start();
       tweenFillColor.start();
       tweenStrokeWeight.start();
@@ -143,15 +146,16 @@ class SkinCircleButton extends UISkin {
     }
     //println(this.startStrokeColor.getColorComponents()));
     radius = tweenRadius.getValue();
-    fillColor = color(tweenFillColor.getValue(), 255, 255);
+    fillColor = tweenFillColor.getColor();
     strokeWeight = tweenStrokeWeight.getValue();
-    strokeColor = color(tweenFillColor.getValue(), 255, 255);
+    strokeColor = tweenFillColor.getColor();
   }
   
   void display() {
     fill(fillColor);
     stroke(strokeColor);
     strokeWeight(strokeWeight);
+
     if(strokeWeight == 0) noStroke();
     
     circle(parentNode.position.x, parentNode.position.y, radius);

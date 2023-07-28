@@ -1,5 +1,8 @@
 abstract class Geometry implements Displayable {
   ArrayList<PVector> vertices = new ArrayList<PVector>();
+  color fillColor = color(255);
+  float strokeWeight = 4;
+  color strokeColor = color(30);
   
   void display() {};
 }
@@ -14,6 +17,10 @@ class GeometryPyramid extends Geometry {
   }
   
   void display() {
+    fill(fillColor);
+    strokeWeight(2);
+    stroke(strokeColor);
+ 
     beginShape(QUADS);
       for(int i = 0; i < 4; i++) {
         vertex(this.vertices.get(i).x, this.vertices.get(i).y, this.vertices.get(i).z);

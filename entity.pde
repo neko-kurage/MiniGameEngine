@@ -118,6 +118,10 @@ class UIEntity extends Entity {
     this.collision.setParentNode(this);
   }
   
+  void addClickEvent(EventAction action) {
+    Event event = new event()
+  }
+  
   void setCollision(Collider2D setCollision) {
     this.collision = setCollision;
     this.collision.setParentNode(this);
@@ -153,4 +157,7 @@ class UIEntity extends Entity {
     if(skin == null) return;
     skin.display();
   }
+}
+
+class ClickEvent extends InputMouse {
 }

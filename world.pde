@@ -18,7 +18,11 @@ class World {
   }
   
   void addEntity(Entity entity) {
-    this.entities.add(entity);
+    if(entity instanceof UIEntity) {
+       this.entities.add(entity);
+    } else {
+       this.entities.add(0, entity);
+    }
     
     entity.setParentNodeWorld(this);
       
@@ -61,7 +65,20 @@ class World {
   
   void display() {   
     for(Entity entity : this.entities) {
-      entity.display();
+      if(entity instanceof UIEntity) { 
+        //print("UIEntity :" + entity.getClass() + ", ");
+        hint(DISABLE_DEPTH_TEST);
+        camera();
+        noLights();
+        entity.display();
+      } else {
+        //print("none:" + entity.getClass() + ", ");
+        hint(ENABLE_DEPTH_TEST);
+        camera();
+        ambientLight(128, 128, 128);
+        directionalLight(255, 255, 255, 1, 0.8, 0);
+        entity.display();
+      }
     }
   }
 }
